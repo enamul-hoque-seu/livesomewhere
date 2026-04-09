@@ -1,16 +1,97 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowRight, Zap } from "lucide-react";
+import Layout from "@/components/layout/Layout";
+import PostCard from "@/components/blog/PostCard";
+import CategoryCard from "@/components/blog/CategoryCard";
+import NewsletterSignup from "@/components/blog/NewsletterSignup";
+import { posts, categories } from "@/data/mockData";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  const featuredPosts = posts.filter((p) => p.isFeatured);
+  const latestPosts = posts.slice(0, 6);
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
+    <Layout>
+      {/* Hero */}
+      <section className="relative overflow-hidden py-24 md:py-32">
+        {/* Ambient glow */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="max-w-3xl mx-auto text-center"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium mb-6">
+              <Zap className="w-3 h-3" /> Future-forward tech insights
+            </div>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold leading-tight mb-6">
+              <span className="text-foreground">In-Depth Tech</span>
+              <br />
+              <span className="gradient-text">Insights & Analysis</span>
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
+              Tutorials, deep dives, and cutting-edge analysis for developers and tech leaders building the future.
+            </p>
+            <Link
+              to="/blog"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity neon-glow"
+            >
+              Browse Latest Posts <ArrowRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Featured Posts */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-heading font-bold text-foreground">Featured</h2>
+            <Link to="/blog" className="text-sm text-primary hover:underline flex items-center gap-1">
+              View all <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {featuredPosts.map((post) => (
+              <PostCard key={post.id} post={post} featured />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Posts */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-heading font-bold text-foreground mb-8">Latest Posts</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {latestPosts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Categories */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-heading font-bold text-foreground mb-8">Explore Topics</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {categories.map((cat) => (
+              <CategoryCard key={cat.id} category={cat} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <NewsletterSignup />
+    </Layout>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
