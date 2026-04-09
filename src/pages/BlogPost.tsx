@@ -1,0 +1,160 @@
+import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Clock, Eye, Calendar, ArrowLeft, Share2, Twitter, Linkedin } from "lucide-react";
+import Layout from "@/components/layout/Layout";
+import ReadingProgressBar from "@/components/blog/ReadingProgressBar";
+import PostCard from "@/components/blog/PostCard";
+import { posts } from "@/data/mockData";
+
+const BlogPost = () => {
+  const { slug } = useParams();
+  const post = posts.find((p) => p.slug === slug);
+
+  if (!post) {
+    return (
+      <Layout>
+        <div className="container mx-auto px-4 py-20 text-center">
+          <h1 className="text-2xl font-heading font-bold text-foreground mb-4">Post not found</h1>
+          <Link to="/blog" className="text-primary hover:underline">Back to Blog</Link>
+        </div>
+      </Layout>
+    );
+  }
+
+  const relatedPosts = posts.filter((p) => p.id !== post.id && p.category === post.category).slice(0, 3);
+  const headings = post.content.match(/^## .+$/gm)?.map((h) => h.replace("## ", "")) || [];
+
+  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+
+  // Simple markdown to HTML
+  const renderContent = (content: string) => {
+    return content
+      .split("\n")
+      .map((line, i) => {
+        if (line.startsWith("### ")) return <h3 key={i} className="text-lg font-heading font-semibold text-foreground mt-8 mb-3">{line.replace("### ", "")}</h3>;
+        if (line.startsWith("## ")) return <h2 key={i} id={line.replace("## ", "").toLowerCase().replace(/\s+/g, "-")} className="text-xl font-heading font-bold text-foreground mt-10 mb-4">{line.replace("## ", "")}</h2>;
+        if (line.startsWith("> ")) return <blockquote key={i} className="border-l-2 border-primary pl-4 italic text-muted-foreground my-4">{line.replace("> ", "")}</blockquote>;
+        if (line.startsWith("```")) return null;
+        if (line.trim() === "") return <br key={i} />;
+        // Code block lines
+        if (line.startsWith("//") || line.startsWith("export ") || line.startsWith("  ") || line.startsWith("const ") || line.startsWith("import ") || line.startsWith("});") || line.startsWith("}") || line.startsWith("{")) {
+          return <code key={i} className="block font-mono text-sm text-primary/80 bg-muted/50 px-4 py-0.5">{line}</code>;
+        }
+        return <p key={i} className="text-foreground/80 leading-relaxed mb-3">{line}</p>;
+      });
+  };
+
+  return (
+    <Layout>
+      <ReadingProgressBar />
+      <article className="container mx-auto px-4 py-12">
+        {/* Breadcrumb */}
+        <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
+          <Link to="/" className="hover:text-primary transition-colors">Home</Link>
+          <span>/</span>
+          <Link to="/blog" className="hover:text-primary transition-colors">Blog</Link>
+          <span>/</span>
+          <span className="text-foreground truncate max-w-[200px]">{post.title}</span>
+        </nav>
+
+        <div className="flex flex-col lg:flex-row gap-10">
+          {/* Main content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex-1 max-w-3xl"
+          >
+            <span className="text-xs font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-full">
+              {post.category}
+            </span>
+            <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground mt-4 mb-4 leading-tight">
+              {post.title}
+            </h1>
+
+            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
+              <div className="flex items-center gap-2">
+                <img src={post.author.avatar} alt={post.author.name} className="w-8 h-8 rounded-full object-cover" />
+                <span>{post.author.name}</span>
+              </div>
+              <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" />{new Date(post.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
+              <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{post.readingTime} min read</span>
+              <span className="flex items-center gap-1"><Eye className="w-3.5 h-3.5" />{post.views.toLocaleString()} views</span>
+            </div>
+
+            <div className="rounded-xl overflow-hidden mb-8">
+              <img src={post.featuredImage} alt={post.title} className="w-full aspect-video object-cover" />
+            </div>
+
+            <div className="prose-custom">
+              {renderContent(post.content)}
+            </div>
+
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2 mt-8 pt-6 border-t border-border">
+              {post.tags.map((tag) => (
+                <span key={tag} className="text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+
+            {/* Share */}
+            <div className="flex items-center gap-3 mt-6">
+              <span className="text-sm text-muted-foreground flex items-center gap-1"><Share2 className="w-4 h-4" /> Share</span>
+              <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-muted hover:bg-muted/80 transition-colors text-muted-foreground hover:text-foreground" aria-label="Share on X">
+                <Twitter className="w-4 h-4" />
+              </a>
+              <a href={`https://linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-muted hover:bg-muted/80 transition-colors text-muted-foreground hover:text-foreground" aria-label="Share on LinkedIn">
+                <Linkedin className="w-4 h-4" />
+              </a>
+            </div>
+
+            {/* Author Bio */}
+            <div className="glass-card p-6 mt-8 flex flex-col sm:flex-row gap-4">
+              <img src={post.author.avatar} alt={post.author.name} className="w-16 h-16 rounded-full object-cover" />
+              <div>
+                <p className="font-heading font-semibold text-foreground">{post.author.name}</p>
+                <p className="text-xs text-primary mb-2">{post.author.role}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{post.author.bio}</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Sidebar / TOC */}
+          {headings.length > 0 && (
+            <aside className="hidden lg:block w-64 shrink-0">
+              <div className="sticky top-24 glass-card p-5">
+                <h4 className="font-heading font-semibold text-foreground text-sm mb-4">Table of Contents</h4>
+                <nav className="flex flex-col gap-2">
+                  {headings.map((heading) => (
+                    <a
+                      key={heading}
+                      href={`#${heading.toLowerCase().replace(/\s+/g, "-")}`}
+                      className="text-xs text-muted-foreground hover:text-primary transition-colors leading-relaxed"
+                    >
+                      {heading}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            </aside>
+          )}
+        </div>
+
+        {/* Related Posts */}
+        {relatedPosts.length > 0 && (
+          <section className="mt-16 pt-12 border-t border-border">
+            <h2 className="text-2xl font-heading font-bold text-foreground mb-8">Related Posts</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedPosts.map((p) => (
+                <PostCard key={p.id} post={p} />
+              ))}
+            </div>
+          </section>
+        )}
+      </article>
+    </Layout>
+  );
+};
+
+export default BlogPost;
