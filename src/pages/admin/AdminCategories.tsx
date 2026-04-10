@@ -1,0 +1,101 @@
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
+
+interface CategoryRow { id: string; name: string; slug: string; description: string | null; icon: string | null; }
+
+export default function AdminCategories() {
+  const [categories, setCategories] = useState<CategoryRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editing, setEditing] = useState<CategoryRow | null>(null);
+  const [name, setName] = useState("");
+  const [slug, setSlug] = useState("");
+  const [description, setDescription] = useState("");
+  const [icon, setIcon] = useState("");
+  const { toast } = useToast();
+
+  const fetchCategories = async () => {
+    const { data } = await supabase.from("categories").select("*").order("name");
+    setCategories(data ?? []);
+    setLoading(false);
+  };
+
+  useEffect(() => { fetchCategories(); }, []);
+
+  const generateSlug = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+  const openNew = () => { setEditing(null); setName(""); setSlug(""); setDescription(""); setIcon(""); setDialogOpen(true); };
+  const openEdit = (c: CategoryRow) => { setEditing(c); setName(c.name); setSlug(c.slug); setDescription(c.description ?? ""); setIcon(c.icon ?? ""); setDialogOpen(true); };
+
+  const handleSave = async () => {
+    const data = { name, slug, description: description || null, icon: icon || null };
+    let error;
+    if (editing) {
+      ({ error } = await supabase.from("categories").update(data).eq("id", editing.id));
+    } else {
+      ({ error } = await supabase.from("categories").insert(data));
+    }
+    if (error) { toast({ title: "Error", description: error.message, variant: "destructive" }); }
+    else { toast({ title: editing ? "Category updated" : "Category created" }); setDialogOpen(false); fetchCategories(); }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Delete this category?")) return;
+    const { error } = await supabase.from("categories").delete().eq("id", id);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: "Category deleted" }); fetchCategories(); }
+  };
+
+  if (loading) return <div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>;
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold font-display">Categories</h1>
+        <Button onClick={openNew}><Plus className="mr-2 h-4 w-4" />New Category</Button>
+      </div>
+      <div className="rounded-lg border border-border/50 overflow-hidden">
+        <Table>
+          <TableHeader><TableRow><TableHead>Name</TableHead><TableHead>Slug</TableHead><TableHead>Description</TableHead><TableHead className="w-24">Actions</TableHead></TableRow></TableHeader>
+          <TableBody>
+            {categories.length === 0
+              ? <TableRow><TableCell colSpan={4} className="text-center text-muted-foreground py-12">No categories yet.</TableCell></TableRow>
+              : categories.map((c) => (
+                <TableRow key={c.id}>
+                  <TableCell className="font-medium">{c.name}</TableCell>
+                  <TableCell className="text-muted-foreground">{c.slug}</TableCell>
+                  <TableCell className="text-muted-foreground text-sm max-w-xs truncate">{c.description ?? "—"}</TableCell>
+                  <TableCell>
+                    <div className="flex gap-1">
+                      <Button variant="ghost" size="icon" onClick={() => openEdit(c)}><Pencil className="h-4 w-4" /></Button>
+                      <Button variant="ghost" size="icon" onClick={() => handleDelete(c.id)} className="hover:text-destructive"><Trash2 className="h-4 w-4" /></Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </div>
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent>
+          <DialogHeader><DialogTitle>{editing ? "Edit Category" : "New Category"}</DialogTitle></DialogHeader>
+          <div className="space-y-4">
+            <div className="space-y-2"><Label>Name</Label><Input value={name} onChange={(e) => { setName(e.target.value); if (!editing) setSlug(generateSlug(e.target.value)); }} /></div>
+            <div className="space-y-2"><Label>Slug</Label><Input value={slug} onChange={(e) => setSlug(e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description</Label><Textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} /></div>
+            <div className="space-y-2"><Label>Icon (Lucide name)</Label><Input value={icon} onChange={(e) => setIcon(e.target.value)} placeholder="e.g. Brain, Shield, Cloud" /></div>
+            <Button onClick={handleSave} className="w-full">Save</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
