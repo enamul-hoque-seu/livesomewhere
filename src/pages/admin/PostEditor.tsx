@@ -117,7 +117,7 @@ export default function PostEditor() {
     }
     setSaving(true);
 
-    const postData: Record<string, any> = {
+    const postData = {
       title: title.trim(),
       slug: slug.trim(),
       excerpt: excerpt.trim() || null,
