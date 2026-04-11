@@ -99,9 +99,31 @@ const BlogPost = () => {
             animate={{ opacity: 1, y: 0 }}
             className="flex-1 max-w-3xl"
           >
-            <span className="text-xs font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-full">
-              {post.categories?.name ?? "Uncategorized"}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-full">
+                {post.categories?.name ?? "Uncategorized"}
+              </span>
+              {(post as any).is_sponsored && (
+                <span className="text-xs font-medium text-yellow-400 bg-yellow-400/10 px-2.5 py-1 rounded-full">
+                  Sponsored
+                </span>
+              )}
+            </div>
+
+            {/* Sponsor info */}
+            {(post as any).is_sponsored && (post as any).sponsor_name && (
+              <div className="flex items-center gap-3 mt-3 p-3 rounded-lg bg-muted/50 border border-border">
+                {(post as any).sponsor_logo && (
+                  <img src={(post as any).sponsor_logo} alt={(post as any).sponsor_name} className="h-6 object-contain" />
+                )}
+                <span className="text-xs text-muted-foreground">
+                  Sponsored by{" "}
+                  {(post as any).sponsor_url ? (
+                    <a href={(post as any).sponsor_url} target="_blank" rel="noopener noreferrer sponsored" className="text-primary hover:underline">{(post as any).sponsor_name}</a>
+                  ) : (post as any).sponsor_name}
+                </span>
+              </div>
+            )}
             <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground mt-4 mb-4 leading-tight">
               {post.title}
             </h1>
@@ -127,6 +149,20 @@ const BlogPost = () => {
             <div className="prose-custom">
               {post.content && renderContent(post.content)}
             </div>
+
+            {/* Ad Banner */}
+            {(post as any).ad_banner_image && (
+              <div className="my-8 rounded-xl overflow-hidden border border-border">
+                {(post as any).ad_banner_url ? (
+                  <a href={(post as any).ad_banner_url} target="_blank" rel="noopener noreferrer sponsored">
+                    <img src={(post as any).ad_banner_image} alt="Advertisement" className="w-full object-cover" />
+                  </a>
+                ) : (
+                  <img src={(post as any).ad_banner_image} alt="Advertisement" className="w-full object-cover" />
+                )}
+                <p className="text-[10px] text-muted-foreground text-center py-1 bg-muted/30">Advertisement</p>
+              </div>
+            )}
 
             {/* Tags */}
             {(post.tags ?? []).length > 0 && (
