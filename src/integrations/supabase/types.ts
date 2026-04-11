@@ -97,6 +97,8 @@ export type Database = {
       }
       posts: {
         Row: {
+          ad_banner_image: string | null
+          ad_banner_url: string | null
           author_id: string | null
           category_id: string | null
           content: string | null
@@ -106,17 +108,23 @@ export type Database = {
           id: string
           is_featured: boolean | null
           is_published: boolean | null
+          is_sponsored: boolean | null
           meta_description: string | null
           meta_title: string | null
           published_at: string | null
           reading_time: number | null
           slug: string
+          sponsor_logo: string | null
+          sponsor_name: string | null
+          sponsor_url: string | null
           tags: string[] | null
           title: string
           updated_at: string
           views: number | null
         }
         Insert: {
+          ad_banner_image?: string | null
+          ad_banner_url?: string | null
           author_id?: string | null
           category_id?: string | null
           content?: string | null
@@ -126,17 +134,23 @@ export type Database = {
           id?: string
           is_featured?: boolean | null
           is_published?: boolean | null
+          is_sponsored?: boolean | null
           meta_description?: string | null
           meta_title?: string | null
           published_at?: string | null
           reading_time?: number | null
           slug: string
+          sponsor_logo?: string | null
+          sponsor_name?: string | null
+          sponsor_url?: string | null
           tags?: string[] | null
           title: string
           updated_at?: string
           views?: number | null
         }
         Update: {
+          ad_banner_image?: string | null
+          ad_banner_url?: string | null
           author_id?: string | null
           category_id?: string | null
           content?: string | null
@@ -146,11 +160,15 @@ export type Database = {
           id?: string
           is_featured?: boolean | null
           is_published?: boolean | null
+          is_sponsored?: boolean | null
           meta_description?: string | null
           meta_title?: string | null
           published_at?: string | null
           reading_time?: number | null
           slug?: string
+          sponsor_logo?: string | null
+          sponsor_name?: string | null
+          sponsor_url?: string | null
           tags?: string[] | null
           title?: string
           updated_at?: string
