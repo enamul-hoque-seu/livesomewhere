@@ -132,9 +132,9 @@ const BlogPost = () => {
               </div>
             )}
 
-            <div className="prose-custom">
-              {post.content && renderContent(post.content)}
-            </div>
+            {post.content && (
+              <div className="prose-custom" dangerouslySetInnerHTML={{ __html: post.content }} />
+            )}
 
             {/* Ad Banner */}
             {(post as any).ad_banner_image && (
