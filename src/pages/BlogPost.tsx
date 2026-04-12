@@ -68,6 +68,7 @@ const BlogPost = () => {
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
   return (
+    <Layout>
       <ReadingProgressBar />
       <article className="container mx-auto px-4 py-12">
         {/* Breadcrumb */}
