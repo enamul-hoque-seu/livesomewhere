@@ -142,7 +142,7 @@ export function RichTextEditor({ content, onChange, placeholder, onImageUpload }
   if (!editor) return null;
 
   return (
-    <div className="rich-editor-wrapper rounded-lg border border-border/50 bg-card overflow-hidden">
+    <div className="rich-editor-wrapper rounded-lg border border-border/50 bg-card overflow-hidden flex flex-col max-h-[700px]">
       <EditorToolbar
         editor={editor}
         onAddImage={addImage}
