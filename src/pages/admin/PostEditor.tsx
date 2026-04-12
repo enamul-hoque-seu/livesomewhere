@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Save, Eye, ArrowLeft, Upload, ImageIcon, Megaphone } from "lucide-react";
+import { RichTextEditor } from "@/components/editor/RichTextEditor";
 
 interface CategoryOption { id: string; name: string; }
 interface AuthorOption { id: string; name: string; }
@@ -60,12 +61,27 @@ export default function PostEditor() {
     const { error } = await supabase.storage.from("post-images").upload(path, file);
     if (error) {
       toast({ title: "Upload failed", description: error.message, variant: "destructive" });
-    } else {
-      const { data } = supabase.storage.from("post-images").getPublicUrl(path);
-      onSuccess(data.publicUrl);
-      toast({ title: "Image uploaded!" });
+      setUploading(false);
+      return "";
     }
+    const { data } = supabase.storage.from("post-images").getPublicUrl(path);
+    onSuccess(data.publicUrl);
+    toast({ title: "Image uploaded!" });
     setUploading(false);
+    return data.publicUrl;
+  };
+
+  const handleEditorImageUpload = async (file: File): Promise<string> => {
+    const ext = file.name.split(".").pop();
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    const { error } = await supabase.storage.from("post-images").upload(path, file);
+    if (error) {
+      toast({ title: "Upload failed", description: error.message, variant: "destructive" });
+      return "";
+    }
+    const { data } = supabase.storage.from("post-images").getPublicUrl(path);
+    toast({ title: "Image uploaded!" });
+    return data.publicUrl;
   };
 
   useEffect(() => {
@@ -200,8 +216,13 @@ export default function PostEditor() {
             <Textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} placeholder="Brief summary..." rows={3} />
           </div>
           <div className="space-y-2">
-            <Label>Content (Markdown)</Label>
-            <Textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="Write your post content in markdown..." rows={20} className="font-mono text-sm" />
+            <Label>Content</Label>
+            <RichTextEditor
+              content={content}
+              onChange={setContent}
+              placeholder="Start writing your post..."
+              onImageUpload={handleEditorImageUpload}
+            />
           </div>
         </TabsContent>
 
