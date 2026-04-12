@@ -160,7 +160,9 @@ export function RichTextEditor({ content, onChange, placeholder, onImageUpload }
         }}
       />
 
-      <EditorContent editor={editor} />
+      <div className="overflow-y-auto flex-1">
+        <EditorContent editor={editor} />
+      </div>
 
       <div className="flex items-center justify-between px-4 py-2 border-t border-border/30 text-xs text-muted-foreground">
         <span>{editor.storage.characterCount?.characters?.() ?? editor.getText().length} characters</span>
