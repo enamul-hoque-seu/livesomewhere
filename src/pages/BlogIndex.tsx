@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Search, SlidersHorizontal, Loader2 } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
 import PostCard from "@/components/blog/PostCard";
 import { supabase } from "@/integrations/supabase/client";
 import type { DbPost, DbCategory } from "@/types/database";
