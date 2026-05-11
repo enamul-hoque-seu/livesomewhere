@@ -107,7 +107,7 @@ export default function CourseEditor() {
 
   const updateLesson = async (lesson: Lesson, patch: Partial<Lesson>) => {
     setLessons((arr) => arr.map((x) => (x.id === lesson.id ? { ...x, ...patch } : x)));
-    await supabase.from("lessons").update(patch as Record<string, unknown>).eq("id", lesson.id);
+    await supabase.from("lessons").update(patch as never).eq("id", lesson.id);
   };
 
   const deleteLesson = async (lessonId: string) => {
@@ -341,7 +341,7 @@ function LessonRow({
 
   const updateQuestion = async (q: QuizQuestion, patch: Partial<QuizQuestion>) => {
     setQuestions((arr) => arr.map((x) => (x.id === q.id ? { ...x, ...patch } : x)));
-    await supabase.from("quiz_questions").update(patch as Record<string, unknown>).eq("id", q.id);
+    await supabase.from("quiz_questions").update(patch as never).eq("id", q.id);
   };
 
   const deleteQuestion = async (qid: string) => {
