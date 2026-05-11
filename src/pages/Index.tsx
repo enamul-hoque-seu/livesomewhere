@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Zap, Loader2 } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
 import PostCard from "@/components/blog/PostCard";
 import CategoryCard from "@/components/blog/CategoryCard";
 import NewsletterSignup from "@/components/blog/NewsletterSignup";
@@ -37,6 +38,21 @@ const Index = () => {
 
   return (
     <Layout>
+      <SEO
+        title="Noob to Root — Tech Tutorials, Linux & Hacking Guides"
+        description="Hands-on tech tutorials, ethical hacking guides, Linux, networking, and developer walkthroughs — from zero to root."
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Noob to Root",
+          url: typeof window !== "undefined" ? window.location.origin : "",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: `${typeof window !== "undefined" ? window.location.origin : ""}/blog?search={search_term_string}`,
+            "query-input": "required name=search_term_string",
+          },
+        }}
+      />
       {/* Hero */}
       <section className="relative overflow-hidden py-24 md:py-32">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
@@ -49,15 +65,15 @@ const Index = () => {
             className="max-w-3xl mx-auto text-center"
           >
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium mb-6">
-              <Zap className="w-3 h-3" /> Future-forward tech insights
+              <Zap className="w-3 h-3" /> From Noob to Root
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold leading-tight mb-6">
-              <span className="text-foreground">In-Depth Tech</span>
+              <span className="text-foreground">Tech Tutorials</span>
               <br />
-              <span className="gradient-text">Insights & Analysis</span>
+              <span className="gradient-text">From Zero to Root</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
-              Tutorials, deep dives, and cutting-edge analysis for developers and tech leaders building the future.
+              Hands-on guides for Linux, ethical hacking, networking, DevOps, and software dev — written for learners, by hackers.
             </p>
             <Link
               to="/blog"
