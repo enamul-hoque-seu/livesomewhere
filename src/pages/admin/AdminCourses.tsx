@@ -4,6 +4,7 @@ import { Plus, Edit, Trash2, GraduationCap, Eye, EyeOff, Loader2 } from "lucide-
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Course, formatPrice, slugify } from "@/lib/courses";
+import { ensureDemoCoursesSeeded } from "@/lib/seedCourses";
 import { toast } from "sonner";
 
 export default function AdminCourses() {
@@ -12,7 +13,11 @@ export default function AdminCourses() {
 
   const load = async () => {
     setLoading(true);
-    const { data } = await supabase.from("courses").select("*").order("created_at", { ascending: false });
+    let { data } = await supabase.from("courses").select("*").order("created_at", { ascending: false });
+    if (!data || data.length === 0) {
+      await ensureDemoCoursesSeeded();
+      ({ data } = await supabase.from("courses").select("*").order("created_at", { ascending: false }));
+    }
     setCourses((data ?? []) as unknown as Course[]);
     setLoading(false);
   };

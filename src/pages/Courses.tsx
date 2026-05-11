@@ -6,21 +6,37 @@ import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import { Course, formatPrice } from "@/lib/courses";
+import { ensureDemoCoursesSeeded } from "@/lib/seedCourses";
 
 export default function Courses() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase
-      .from("courses")
-      .select("*")
-      .eq("is_published", true)
-      .order("sort_order", { ascending: true })
-      .then(({ data }) => {
-        setCourses((data ?? []) as unknown as Course[]);
-        setLoading(false);
-      });
+    let cancelled = false;
+    const load = async () => {
+      const { data } = await supabase
+        .from("courses")
+        .select("*")
+        .eq("is_published", true)
+        .order("sort_order", { ascending: true });
+      if (cancelled) return;
+      if (!data || data.length === 0) {
+        await ensureDemoCoursesSeeded();
+        const retry = await supabase
+          .from("courses")
+          .select("*")
+          .eq("is_published", true)
+          .order("sort_order", { ascending: true });
+        if (cancelled) return;
+        setCourses((retry.data ?? []) as unknown as Course[]);
+      } else {
+        setCourses(data as unknown as Course[]);
+      }
+      setLoading(false);
+    };
+    load();
+    return () => { cancelled = true; };
   }, []);
 
   return (
