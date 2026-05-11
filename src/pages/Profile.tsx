@@ -13,6 +13,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 import {
   Loader2,
   Save,
@@ -23,6 +27,7 @@ import {
   ExternalLink,
   LogOut,
   Mail,
+  CalendarIcon,
 } from "lucide-react";
 import { toast } from "sonner";
 import { generateCertificatePdf } from "@/lib/certificate";
@@ -57,6 +62,8 @@ export default function Profile() {
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [dob, setDob] = useState<Date | undefined>(undefined);
   const [saving, setSaving] = useState(false);
 
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
@@ -70,6 +77,8 @@ export default function Profile() {
     setLastName(profile?.last_name ?? "");
     setUsername(profile?.username ?? "");
     setBio(profile?.bio ?? "");
+    setMobile(profile?.mobile_number ?? "");
+    setDob(profile?.date_of_birth ? new Date(profile.date_of_birth) : undefined);
   }, [profile]);
 
   useEffect(() => {
@@ -169,6 +178,12 @@ export default function Profile() {
     setSaving(true);
     const computedDisplay =
       [firstName.trim(), lastName.trim()].filter(Boolean).join(" ") || displayName || null;
+    const mob = mobile.trim();
+    if (mob && !/^\+?[0-9\s\-()]{7,20}$/.test(mob)) {
+      toast.error("Please enter a valid mobile number.");
+      setSaving(false);
+      return;
+    }
     const { error } = await supabase
       .from("profiles")
       .upsert(
@@ -179,6 +194,8 @@ export default function Profile() {
           last_name: lastName.trim() || null,
           username: username.trim() || null,
           bio: bio.trim() || null,
+          mobile_number: mob || null,
+          date_of_birth: dob ? format(dob, "yyyy-MM-dd") : null,
           avatar_url: avatarUrl || null,
         },
         { onConflict: "user_id" }
@@ -303,6 +320,50 @@ export default function Profile() {
                     maxLength={20}
                     placeholder="ada_root"
                   />
+                </div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="mob">Mobile number</Label>
+                    <Input
+                      id="mob"
+                      type="tel"
+                      value={mobile}
+                      onChange={(e) => setMobile(e.target.value)}
+                      maxLength={20}
+                      placeholder="+1 555 123 4567"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Date of birth</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !dob && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4 opacity-60" />
+                          {dob ? format(dob, "PPP") : "Pick a date"}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={dob}
+                          onSelect={setDob}
+                          captionLayout="dropdown-buttons"
+                          fromYear={1925}
+                          toYear={new Date().getFullYear()}
+                          disabled={(d) => d > new Date() || d < new Date("1925-01-01")}
+                          initialFocus
+                          className={cn("p-3 pointer-events-auto")}
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="bio">Short intro</Label>

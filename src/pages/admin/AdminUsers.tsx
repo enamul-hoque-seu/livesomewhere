@@ -13,6 +13,8 @@ type Row = {
   username: string | null;
   bio: string | null;
   avatar_url: string | null;
+  mobile_number: string | null;
+  date_of_birth: string | null;
   profile_completed: boolean;
   created_at: string;
   is_admin: boolean;
@@ -31,7 +33,7 @@ export default function AdminUsers() {
       const [{ data: profiles }, { data: roles }, { data: enrollments }, { data: certs }] = await Promise.all([
         supabase
           .from("profiles")
-          .select("user_id, display_name, first_name, last_name, username, bio, avatar_url, profile_completed, created_at")
+          .select("user_id, display_name, first_name, last_name, username, bio, avatar_url, mobile_number, date_of_birth, profile_completed, created_at")
           .order("created_at", { ascending: false }),
         supabase.from("user_roles").select("user_id, role"),
         supabase.from("enrollments").select("user_id"),
@@ -95,6 +97,7 @@ export default function AdminUsers() {
               <tr>
                 <th className="text-left p-3">User</th>
                 <th className="text-left p-3">Username</th>
+                <th className="text-left p-3">Contact</th>
                 <th className="text-left p-3">Joined</th>
                 <th className="text-left p-3">Status</th>
                 <th className="text-left p-3">Activity</th>
@@ -127,6 +130,14 @@ export default function AdminUsers() {
                       </div>
                     </td>
                     <td className="p-3">{r.username ? `@${r.username}` : <span className="text-muted-foreground text-xs">—</span>}</td>
+                    <td className="p-3 text-xs">
+                      <div>{r.mobile_number ?? <span className="text-muted-foreground">—</span>}</div>
+                      {r.date_of_birth && (
+                        <div className="text-muted-foreground mt-0.5">
+                          DOB {new Date(r.date_of_birth).toLocaleDateString()}
+                        </div>
+                      )}
+                    </td>
                     <td className="p-3 text-xs text-muted-foreground">
                       {new Date(r.created_at).toLocaleDateString()}
                     </td>
