@@ -40,11 +40,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center gap-1 mb-4">
-              <span className="text-xl font-heading font-bold neon-text">{siteName.split(/(?=[A-Z])/)[0] || siteName}</span>
-              <span className="text-xl font-heading font-bold text-foreground">{siteName.split(/(?=[A-Z])/).slice(1).join("") || ""}</span>
+              <span className="text-xl font-heading font-bold neon-text">{siteName}</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              In-depth tech insights, tutorials, and future-forward analysis for the modern developer.
+              Hands-on tech tutorials, ethical hacking guides, Linux, and developer walkthroughs — from zero to root.
             </p>
           </div>
 
