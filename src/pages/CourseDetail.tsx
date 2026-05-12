@@ -177,14 +177,17 @@ export default function CourseDetail() {
               )}
 
               {enrolled ? (
-                <Button asChild className="w-full bg-learn hover:bg-learn/90 text-learn-foreground font-semibold">
+                <Button asChild className="group relative w-full overflow-hidden bg-learn hover:bg-learn/90 text-learn-foreground font-semibold animate-cta-glow transition-transform hover:scale-[1.02] active:scale-[0.98]">
                   <Link to={`/courses/${course.slug}/learn`}>
-                    <Play className="w-4 h-4 mr-2" /> {pct > 0 ? "Continue learning" : "Start course"}
+                    <span className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                    <Play className="w-4 h-4 mr-2 transition-transform group-hover:translate-x-0.5 group-hover:scale-110" />
+                    {pct > 0 ? "Continue learning" : "Start course"}
                   </Link>
                 </Button>
               ) : (
-                <Button onClick={handleEnroll} className="w-full bg-learn hover:bg-learn/90 text-learn-foreground font-semibold">
-                  {user ? "Enroll & start free" : "Sign in to enroll"}
+                <Button onClick={handleEnroll} className="group relative w-full overflow-hidden bg-learn hover:bg-learn/90 text-learn-foreground font-semibold animate-cta-glow transition-transform hover:scale-[1.02] active:scale-[0.98]">
+                  <span className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                  <span className="relative">{user ? "Enroll & start free" : "Sign in to enroll"}</span>
                 </Button>
               )}
 
