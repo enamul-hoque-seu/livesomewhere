@@ -236,7 +236,15 @@ export default function Profile() {
         day: "numeric",
       }),
       number: c.certificate_number,
-      instructor: c.course.instructor_name ?? "Noob to Root Team",
+      category: c.course.level ?? undefined,
+      lengthHours: c.course.duration_minutes
+        ? Math.max(1, Math.round(c.course.duration_minutes / 60))
+        : undefined,
+      heroImage: c.course.cover_image ?? undefined,
+      location: "Online",
+      signatures: c.course.instructor_name
+        ? [{ name: c.course.instructor_name, role: "Course Instructor" }]
+        : undefined,
     });
     toast.success("Certificate downloaded");
   };
