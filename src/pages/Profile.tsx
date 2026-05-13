@@ -142,14 +142,20 @@ export default function Profile() {
         .order("issued_at", { ascending: false });
 
       const certCourseIds = (certRows ?? []).map((c: { course_id: string }) => c.course_id);
-      let certCourses: Record<string, { title: string; instructor_name: string | null }> = {};
+      let certCourses: Record<string, NonNullable<Cert["course"]>> = {};
       if (certCourseIds.length) {
         const { data } = await supabase
           .from("courses")
-          .select("id, title, instructor_name")
+          .select("id, title, instructor_name, cover_image, level, duration_minutes")
           .in("id", certCourseIds);
-        (data ?? []).forEach((c: { id: string; title: string; instructor_name: string | null }) => {
-          certCourses[c.id] = { title: c.title, instructor_name: c.instructor_name };
+        (data ?? []).forEach((c: { id: string } & NonNullable<Cert["course"]>) => {
+          certCourses[c.id] = {
+            title: c.title,
+            instructor_name: c.instructor_name,
+            cover_image: c.cover_image,
+            level: c.level,
+            duration_minutes: c.duration_minutes,
+          };
         });
       }
       setCerts(
