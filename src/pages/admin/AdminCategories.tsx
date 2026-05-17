@@ -90,7 +90,12 @@ export default function AdminCategories() {
               ? <TableRow><TableCell colSpan={4} className="text-center text-muted-foreground py-12">No categories yet.</TableCell></TableRow>
               : categories.map((c) => (
                 <TableRow key={c.id}>
-                  <TableCell className="font-medium">{c.name}</TableCell>
+                  <TableCell className="font-medium">
+                    <div className="flex items-center gap-2">
+                      {(() => { const I = getIcon(c.icon); return I ? <I className="h-4 w-4 text-primary" /> : null; })()}
+                      {c.name}
+                    </div>
+                  </TableCell>
                   <TableCell className="text-muted-foreground">{c.slug}</TableCell>
                   <TableCell className="text-muted-foreground text-sm max-w-xs truncate">{c.description ?? "—"}</TableCell>
                   <TableCell>
@@ -111,7 +116,10 @@ export default function AdminCategories() {
             <div className="space-y-2"><Label>Name</Label><Input value={name} onChange={(e) => { setName(e.target.value); if (!editing) setSlug(generateSlug(e.target.value)); }} /></div>
             <div className="space-y-2"><Label>Slug</Label><Input value={slug} onChange={(e) => setSlug(e.target.value)} /></div>
             <div className="space-y-2"><Label>Description</Label><Textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} /></div>
-            <div className="space-y-2"><Label>Icon (Lucide name)</Label><Input value={icon} onChange={(e) => setIcon(e.target.value)} placeholder="e.g. Brain, Shield, Cloud" /></div>
+            <div className="space-y-2">
+              <Label>Icon</Label>
+              <IconPicker value={icon} onChange={setIcon} />
+            </div>
             <Button onClick={handleSave} className="w-full">Save</Button>
           </div>
         </DialogContent>
