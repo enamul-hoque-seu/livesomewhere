@@ -1,13 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, Search, type LucideIcon } from "lucide-react";
+import * as LucideIcons from "lucide-react";
+
+const ICON_CHOICES = [
+  "Brain","Shield","Cloud","Code","Terminal","Cpu","Database","Server","Lock","Key",
+  "Bug","Wifi","Network","GitBranch","Github","Globe","Search","Zap","Rocket","Flame",
+  "Sparkles","Star","Heart","BookOpen","GraduationCap","Lightbulb","Settings","Wrench",
+  "Hammer","Layers","Package","Box","Folder","FileCode","FileText","Image","Camera",
+  "Monitor","Smartphone","Headphones","Music","Video","Mic","Radio","Tv","Gamepad2",
+  "Trophy","Award","Target","Flag","MapPin","Compass","Map","Building","Home","Briefcase",
+  "ShoppingCart","CreditCard","DollarSign","TrendingUp","BarChart","PieChart","Activity",
+  "Users","User","UserCheck","MessageCircle","Mail","Send","Bell","Calendar","Clock",
+  "Coffee","Pizza","Leaf","TreePine","Sun","Moon","CloudRain","Snowflake","Eye","EyeOff",
+];
+
+const getIcon = (name?: string | null): LucideIcon | null => {
+  if (!name) return null;
+  const Icon = (LucideIcons as unknown as Record<string, LucideIcon>)[name];
+  return Icon ?? null;
+};
 
 interface CategoryRow { id: string; name: string; slug: string; description: string | null; icon: string | null; }
 
