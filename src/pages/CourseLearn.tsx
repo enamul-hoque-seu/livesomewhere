@@ -15,6 +15,7 @@ import { Course, Module, Lesson, QuizQuestion, fetchCourseFull, formatPrice } fr
 import { generateCertificatePdf } from "@/lib/certificate";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import DOMPurify from "dompurify";
 
 type Bundle = { course: Course; modules: Module[]; lessons: Lesson[] };
 
@@ -346,7 +347,7 @@ function LessonView({
       )}
 
       {lesson.content && (
-        <div className="learn-prose" dangerouslySetInnerHTML={{ __html: contentToHtml(lesson.content) }} />
+        <div className="learn-prose" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(contentToHtml(lesson.content)) }} />
       )}
 
       {lesson.lesson_type === "terminal" && lesson.terminal_commands?.length > 0 && (
@@ -438,7 +439,9 @@ function LessonView({
 
 // Convert markdown-ish content to HTML with light syntax highlighting.
 function contentToHtml(md: string): string {
+  // Raw HTML is not passed through unsanitized — caller must sanitize the final output.
   if (md.trim().startsWith("<")) return md;
+
   const esc = (s: string) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]!));
   const lines = md.split("\n");
   let html = "";
