@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Clock, Eye, Calendar, Share2, Twitter, Linkedin, Loader2 } from "lucide-react";
+import DOMPurify from "dompurify";
 import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
 import ReadingProgressBar from "@/components/blog/ReadingProgressBar";
@@ -171,7 +172,7 @@ const BlogPost = () => {
             )}
 
             {post.content && (
-              <div className="prose-custom" dangerouslySetInnerHTML={{ __html: post.content }} />
+              <div className="prose-custom" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }} />
             )}
 
             {/* Ad Banner */}
