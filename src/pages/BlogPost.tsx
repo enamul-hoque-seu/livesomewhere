@@ -9,12 +9,23 @@ import ReadingProgressBar from "@/components/blog/ReadingProgressBar";
 import PostCard from "@/components/blog/PostCard";
 import { supabase } from "@/integrations/supabase/client";
 import type { DbPost } from "@/types/database";
+import Comments from "@/components/blog/Comments";
 
 const BlogPost = () => {
   const { slug } = useParams();
   const [post, setPost] = useState<DbPost | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<DbPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [commentsEnabled, setCommentsEnabled] = useState(false);
+
+  useEffect(() => {
+    supabase
+      .from("site_settings")
+      .select("value")
+      .eq("key", "enable_comments")
+      .maybeSingle()
+      .then(({ data }) => setCommentsEnabled(data?.value === "true"));
+  }, []);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -271,6 +282,8 @@ const BlogPost = () => {
             </aside>
           )}
         </div>
+
+        {commentsEnabled && <Comments postId={post.id} />}
 
         {/* Related Posts */}
         {relatedPosts.length > 0 && (

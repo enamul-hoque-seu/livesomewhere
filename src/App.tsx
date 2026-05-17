@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProfileCompletionGate from "./components/auth/ProfileCompletionGate.tsx";
+import Analytics from "./components/Analytics.tsx";
 
 // Eagerly load the landing page for fastest FCP, lazy-load the rest.
 import Index from "./pages/Index.tsx";
@@ -55,6 +56,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ProfileCompletionGate />
+          <Analytics />
           <Suspense fallback={<RouteFallback />}>
             <Routes>
               <Route path="/" element={<Index />} />
