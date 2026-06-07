@@ -41,7 +41,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center mb-4" aria-label={`${siteName} home`}>
-              <img src={logo} alt={siteName} className="h-12 w-auto" />
+              <img src={logo} alt={siteName} width={180} height={48} className="h-12 w-auto" />
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Hands-on tech tutorials, ethical hacking guides, Linux, and developer walkthroughs — from zero to root.

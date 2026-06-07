@@ -22,7 +22,8 @@ const Analytics = () => {
 
   useEffect(() => {
     let cancelled = false;
-    (async () => {
+
+    const boot = async () => {
       const { data } = await supabase
         .from("site_settings")
         .select("key, value")
@@ -66,7 +67,6 @@ const Analytics = () => {
         s.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(gtmId)}`;
         document.head.appendChild(s);
 
-        // <noscript> fallback iframe
         if (!document.getElementById("gtm-noscript")) {
           const ns = document.createElement("noscript");
           ns.id = "gtm-noscript";
@@ -76,9 +76,19 @@ const Analytics = () => {
           document.body.prepend(ns);
         }
       }
-    })();
+    };
+
+    // Defer analytics until the browser is idle so it never blocks LCP/FCP.
+    const ric: any = (window as any).requestIdleCallback;
+    const handle = ric
+      ? ric(boot, { timeout: 4000 })
+      : window.setTimeout(boot, 2500);
+
     return () => {
       cancelled = true;
+      const cic: any = (window as any).cancelIdleCallback;
+      if (ric && cic) cic(handle);
+      else clearTimeout(handle as number);
     };
   }, []);
 

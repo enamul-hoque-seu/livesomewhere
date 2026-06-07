@@ -6,6 +6,7 @@ import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import { Course, formatPrice } from "@/lib/courses";
+import { unsplashSrc, unsplashSrcSet } from "@/lib/img";
 
 
 export default function Courses() {
@@ -89,7 +90,17 @@ export default function Courses() {
                 >
                   <div className="aspect-video bg-gradient-to-br from-learn/20 via-card to-primary/10 relative overflow-hidden">
                     {c.cover_image ? (
-                      <img src={c.cover_image} alt={c.title} className="w-full h-full object-cover" loading="lazy" />
+                      <img
+                        src={unsplashSrc(c.cover_image, 720)}
+                        srcSet={unsplashSrcSet(c.cover_image)}
+                        sizes="(min-width: 1024px) 360px, (min-width: 768px) 50vw, 100vw"
+                        alt={c.title}
+                        width={720}
+                        height={405}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
                         <GraduationCap className="w-16 h-16 text-learn/40" />

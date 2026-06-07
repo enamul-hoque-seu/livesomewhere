@@ -42,10 +42,30 @@
     <meta name="twitter:title" content="Noob to Root — Tech Tutorials, Linux & Hacking Guides" />
     <meta name="twitter:description" content="Hands-on tech tutorials, ethical hacking guides, Linux, networking, and developer walkthroughs from zero to root." />
     <meta name="twitter:image" content="https://noobtoroot.com/og-default.jpg" />
+    <style>
+      /* Critical above-the-fold CSS — paints hero before app JS/CSS arrives.
+         Mirrors the design tokens in src/index.css. */
+      :root { color-scheme: dark; }
+      html, body { margin: 0; padding: 0; background: hsl(0 0% 4%); color: hsl(150 20% 96%); }
+      body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+      #hero-skeleton { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 6rem 1rem 4rem; text-align: center; }
+      #hero-skeleton .badge { display: inline-flex; align-items: center; gap: .5rem; padding: .35rem .75rem; border-radius: 9999px; background: hsl(157 100% 50% / .1); border: 1px solid hsl(157 100% 50% / .3); color: hsl(157 100% 50%); font-family: ui-monospace, 'Fira Code', monospace; font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 1.25rem; }
+      #hero-skeleton h1 { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 700; font-size: clamp(2.25rem, 7vw, 4.5rem); line-height: 1.05; margin: 0 0 1.25rem; letter-spacing: -.02em; }
+      #hero-skeleton .grad { background: linear-gradient(135deg, hsl(190 100% 50%), hsl(265 100% 65%)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      #hero-skeleton p { color: hsl(150 8% 60%); max-width: 38rem; margin: 0 auto; font-size: 1.05rem; line-height: 1.6; }
+    </style>
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="hero-skeleton">
+        <div>
+          <div class="badge"><span style="width:.4rem;height:.4rem;border-radius:9999px;background:hsl(157 100% 50%);display:inline-block"></span>Cybersecurity · Linux · DevOps</div>
+          <h1>Hack the gap<br/><span class="grad">From Zero to Root.</span></h1>
+          <p>A premium playground for ethical hackers, sysadmins, and builders. Hands-on labs, certified courses, and battle-tested guides — built by operators, for the next generation of operators.</p>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
