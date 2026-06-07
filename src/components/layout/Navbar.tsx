@@ -39,6 +39,8 @@ const Navbar = () => {
           <img
             src={logo}
             alt="Noob to Root"
+            width={180}
+            height={48}
             className="h-10 md:h-12 w-auto transition-transform duration-300 group-hover:scale-105"
           />
         </Link>

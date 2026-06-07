@@ -22,6 +22,7 @@ import PostCard from "@/components/blog/PostCard";
 import CategoryCard from "@/components/blog/CategoryCard";
 import NewsletterSignup from "@/components/blog/NewsletterSignup";
 import { supabase } from "@/integrations/supabase/client";
+import { unsplashSrc, unsplashSrcSet } from "@/lib/img";
 import type { DbPost, DbCategory } from "@/types/database";
 
 type DbCourse = {
@@ -319,10 +320,15 @@ const Index = () => {
                       >
                         <div className="aspect-video overflow-hidden bg-muted relative">
                           <img
-                            src={c.cover_image || "/placeholder.svg"}
+                            src={unsplashSrc(c.cover_image, 720)}
+                            srcSet={c.cover_image ? unsplashSrcSet(c.cover_image) : undefined}
+                            sizes="(min-width: 1024px) 380px, (min-width: 768px) 45vw, 100vw"
                             alt={c.title}
+                            width={720}
+                            height={405}
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
+                            decoding="async"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
                           {c.level && (
