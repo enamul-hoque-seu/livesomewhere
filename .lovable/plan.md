@@ -1,35 +1,59 @@
+# Performance Optimization Plan — Target 95+ Mobile
 
-## Root cause analysis
+## Current state (from report)
+- Performance **67** mobile · FCP **4.5s** · LCP **5.4s** · TBT 30ms · CLS 0.002
+- LCP element render delay: **2,980 ms** (waiting for React to mount before hero renders)
+- Render-blocking CSS: ~350 ms
+- Unused JS: **285 KiB** (editor-vendor 112KB + supabase 40KB shipped to homepage)
+- Unsplash course images: 317KB transferred, 249KB savings (1200×675 served, displayed 662×372)
+- Logos missing explicit width/height (CLS warning)
+- GTM costs ~87ms main thread
 
-GSC shows three issues. The biggest one ("Alternate page with proper canonical tag" — 10 pages) is caused by a bug in our head tags:
+## Fixes
 
-**Bug:** `index.html` hard-codes `<link rel="canonical" href="https://noobtoroot.com/" />`. `react-helmet-async` adds the per-route canonical from `SEO.tsx`, but Helmet does **not** dedupe `<link>` tags by `rel`. So every page (e.g. `/blog/foo`) ships with **two** canonicals:
-1. `https://noobtoroot.com/` (from index.html)
-2. `https://noobtoroot.com/blog/foo` (from Helmet)
+### 1. Eliminate LCP render delay (biggest win, ~2s)
+The LCP candidate (hero headline) is inside a React tree that only paints after the JS bundle loads/parses. Inject a **static SSR-like hero shell** directly into `index.html` so the browser paints the headline immediately, then hydrate over it.
 
-Google sees the first one, decides the page is an alternate of the homepage, and refuses to index it. Same issue with the hard-coded `og:url`.
+- Add a `<div id="hero-skeleton">` inside `<div id="root">` in `index.html` containing the H1 ("Hack the gap / From Zero to Root.") and intro paragraph with inline critical CSS (font-family, color, spacing). Browser paints it in the first frame.
+- In `src/main.tsx`, React will replace `#root` content on mount — the skeleton naturally goes away.
+- Result: LCP becomes the static H1, painted at ~FCP time instead of after JS executes.
 
-**Secondary issue ("Alternate" group):** `scripts/generate-sitemap.ts` emits `/blog?category=<slug>` entries. These render the same `/blog` page with a query filter and the canonical resolves back to `/blog`, so Google flags them as alternates. They should not be in the sitemap.
+### 2. Strip editor-vendor + heavy admin code from initial bundle
+- `editor-vendor` (TipTap, 122 KB) is only used in admin. Verify it's not pulled into the main chunk by checking that no public page imports `RichTextEditor`. Currently `AdminLayout` is lazy, but the manualChunk forces those modules into one shared chunk that *might* get preloaded. Move TipTap imports to a dynamic `import()` inside `RichTextEditor.tsx` so it's only fetched when that component renders, and remove the explicit editor-vendor entry from `manualChunks` (let Rollup tree-shake it into the lazy admin chunks naturally).
+- Same treatment for any unused-on-home dependency.
 
-**"Page with redirect" (3 pages):** Likely old slugs you renamed, or non-canonical hostname variants (e.g. `www.noobtoroot.com` → `noobtoroot.com`). Can't be diagnosed without seeing the exact URLs in GSC — I'll add a note asking you to share them if the fix below doesn't clear it on the next crawl.
+### 3. Defer GTM / Analytics
+- Move `Analytics` (GTM) load behind `requestIdleCallback` (or a 2-second timeout fallback) so it never blocks the main thread during initial load. Keep it in `<Analytics />` component, just delay the script injection.
 
-**"Discovered – currently not indexed" (9 pages):** Not an error. Google has queued them but hasn't crawled yet. Will resolve naturally once the canonical bug is fixed and you Request Indexing.
+### 4. Optimize Unsplash images (249 KB savings)
+The DB stores cover_image URLs like `…?w=1200&h=675&fit=crop`. In `Index.tsx` Featured Courses and `Courses.tsx` list:
+- Build a helper that rewrites Unsplash URLs to request `w=720&q=70&fm=webp&fit=crop` (matches displayed ~362-720px width range).
+- Add `srcSet` with 400w / 720w / 1080w variants and a proper `sizes` attribute.
+- Add explicit `width={720}` `height={405}` on the `<img>` tags.
 
-## Changes
+### 5. Logo dimensions (CLS)
+- Add `width` and `height` attributes to the `<img>` tags in `Navbar.tsx` and `Footer.tsx` so layout is reserved before the SVG loads.
 
-1. **`index.html`** — remove the static `<link rel="canonical">` line. Leave the og:* tags in place (they act as fallback for non-JS social crawlers; Helmet overrides them per route for Google).
+### 6. Inline critical CSS / reduce render-blocking CSS (350 ms savings)
+- The 14.7 KB `index.css` is render-blocking. Keep Tailwind base small by:
+  - Already covered; biggest gain comes from #1 (hero paints before CSS-heavy components mount).
+- Optionally add `<style>` block in `<head>` with the ~2 KB of critical tokens (`:root` HSL vars + body font/background) so first paint doesn't need the external stylesheet.
 
-2. **`scripts/generate-sitemap.ts`** — remove the `categories` loop that emits `/blog?category=<slug>` entries. Keep the static routes, posts, and courses.
+### 7. Verify
+After deploy, run PageSpeed again. Expect:
+- LCP ~1.8–2.5s (from 5.4s)
+- FCP ~1.5–2.0s (from 4.5s)
+- Score 92–98 mobile
 
-3. **`public/sitemap.xml`** — regenerate (will happen automatically on next `predev`/`prebuild`, but I'll also write the cleaned file directly so it's correct immediately).
+## Files to touch
+- `index.html` — add static hero skeleton + critical CSS `<style>`
+- `src/main.tsx` — no change needed; React replaces root content
+- `src/components/Analytics.tsx` — defer GTM via `requestIdleCallback`
+- `src/components/editor/RichTextEditor.tsx` — dynamic-import TipTap modules
+- `vite.config.ts` — remove `editor-vendor` manual chunk
+- `src/pages/Index.tsx` + `src/pages/Courses.tsx` — Unsplash URL helper + responsive `srcSet` + width/height
+- `src/components/layout/Navbar.tsx` + `Footer.tsx` — width/height on logo `<img>`
 
-## What you should do after deploy
-
-- In Google Search Console, click **Validate Fix** on the "Alternate page with proper canonical tag" issue.
-- Use **URL Inspection → Request Indexing** on 2–3 important pages (homepage, a top blog post, a course) to speed up re-crawl.
-- If "Page with redirect" doesn't clear within ~1 week, share the exact URLs from GSC and I'll trace them — most likely candidates are renamed post slugs or a `www` vs apex hostname mismatch.
-
-## Technical notes
-
-- Per the `head-meta` guidance: when adopting `react-helmet-async`, the static canonical in `index.html` must be removed because `<link>` tags don't dedupe. og:* tags do dedupe by `property`, so leaving them as fallbacks is correct.
-- The sitemap generator runs on `predev` and `prebuild` (already wired in `package.json`), so the next build will produce the correct file.
+## Out of scope
+- Switching hosts / enabling SSR framework
+- Replacing Unsplash with self-hosted assets
