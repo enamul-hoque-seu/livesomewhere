@@ -130,12 +130,14 @@ const BlogIndex = () => {
 
 
         {/* Posts Grid */}
+        <h2 className="sr-only">All posts</h2>
         {filteredPosts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPosts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}
           </div>
+
         ) : (
           <div className="text-center py-20">
             <SlidersHorizontal className="w-10 h-10 text-muted-foreground mx-auto mb-4" />
