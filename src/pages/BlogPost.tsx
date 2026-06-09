@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Clock, Eye, Calendar, Share2, Twitter, Linkedin, Loader2 } from "lucide-react";
+import { Helmet } from "react-helmet-async";
+import { Clock, Eye, Calendar, Share2, Twitter, Linkedin } from "lucide-react";
 import DOMPurify from "dompurify";
 import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
@@ -10,6 +10,7 @@ import PostCard from "@/components/blog/PostCard";
 import { supabase } from "@/integrations/supabase/client";
 import type { DbPost } from "@/types/database";
 import Comments from "@/components/blog/Comments";
+import { smartImg, smartSrcSet } from "@/lib/img";
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -82,7 +83,19 @@ const BlogPost = () => {
   if (loading) {
     return (
       <Layout>
-        <div className="flex justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>
+        <div className="container mx-auto px-4 py-12 min-h-screen">
+          <div className="max-w-3xl mx-auto animate-pulse space-y-6">
+            <div className="h-4 w-1/3 rounded bg-muted/50" />
+            <div className="h-10 w-5/6 rounded bg-muted/50" />
+            <div className="h-4 w-1/2 rounded bg-muted/50" />
+            <div className="aspect-video w-full rounded-xl bg-muted/50" />
+            <div className="space-y-3">
+              <div className="h-4 w-full rounded bg-muted/50" />
+              <div className="h-4 w-11/12 rounded bg-muted/50" />
+              <div className="h-4 w-10/12 rounded bg-muted/50" />
+            </div>
+          </div>
+        </div>
       </Layout>
     );
   }
@@ -158,6 +171,18 @@ const BlogPost = () => {
         jsonLd={{ "@context": "https://schema.org", "@graph": [articleJsonLd, breadcrumbJsonLd] }}
 
       />
+      {post.featured_image && (
+        <Helmet>
+          <link
+            rel="preload"
+            as="image"
+            href={smartImg(post.featured_image, 800)}
+            imageSrcSet={smartSrcSet(post.featured_image, [400, 640, 800, 1200])}
+            imageSizes="(max-width: 768px) 92vw, 720px"
+            {...({ fetchpriority: "high" } as any)}
+          />
+        </Helmet>
+      )}
       <ReadingProgressBar />
       <article className="container mx-auto px-4 py-12">
         {/* Breadcrumb */}
@@ -170,11 +195,7 @@ const BlogPost = () => {
         </nav>
 
         <div className="flex flex-col lg:flex-row gap-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex-1 max-w-3xl"
-          >
+          <div className="flex-1 max-w-3xl">
             <div className="flex items-center gap-2">
               <span className="text-xs font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-full">
                 {post.categories?.name ?? "Uncategorized"}
@@ -217,8 +238,19 @@ const BlogPost = () => {
             </div>
 
             {post.featured_image && (
-              <div className="rounded-xl overflow-hidden mb-8">
-                <img src={post.featured_image} alt={post.title} className="w-full aspect-video object-cover" />
+              <div className="rounded-xl overflow-hidden mb-8 bg-muted/30 aspect-video">
+                <img
+                  src={smartImg(post.featured_image, 800)}
+                  srcSet={smartSrcSet(post.featured_image, [400, 640, 800, 1200])}
+                  sizes="(max-width: 768px) 92vw, 720px"
+                  alt={post.title}
+                  width={800}
+                  height={450}
+                  fetchPriority="high"
+                  decoding="async"
+                  loading="eager"
+                  className="w-full h-full object-cover"
+                />
               </div>
             )}
 
@@ -273,7 +305,7 @@ const BlogPost = () => {
                 </div>
               </div>
             )}
-          </motion.div>
+          </div>
 
           {/* Sidebar / TOC */}
           {headings.length > 0 && (
