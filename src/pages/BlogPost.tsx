@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Clock, Eye, Calendar, Share2, Twitter, Linkedin, Loader2 } from "lucide-react";
+import { Helmet } from "react-helmet-async";
+import { Clock, Eye, Calendar, Share2, Twitter, Linkedin } from "lucide-react";
 import DOMPurify from "dompurify";
 import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
@@ -10,6 +10,7 @@ import PostCard from "@/components/blog/PostCard";
 import { supabase } from "@/integrations/supabase/client";
 import type { DbPost } from "@/types/database";
 import Comments from "@/components/blog/Comments";
+import { smartImg, smartSrcSet } from "@/lib/img";
 
 const BlogPost = () => {
   const { slug } = useParams();
