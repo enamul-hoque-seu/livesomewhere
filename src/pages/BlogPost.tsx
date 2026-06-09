@@ -179,7 +179,7 @@ const BlogPost = () => {
             href={smartImg(post.featured_image, 800)}
             imageSrcSet={smartSrcSet(post.featured_image, [400, 640, 800, 1200])}
             imageSizes="(max-width: 768px) 92vw, 720px"
-            fetchpriority="high"
+            {...({ fetchpriority: "high" } as any)}
           />
         </Helmet>
       )}
