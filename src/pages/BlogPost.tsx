@@ -82,7 +82,19 @@ const BlogPost = () => {
   if (loading) {
     return (
       <Layout>
-        <div className="flex justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>
+        <div className="container mx-auto px-4 py-12 min-h-screen">
+          <div className="max-w-3xl mx-auto animate-pulse space-y-6">
+            <div className="h-4 w-1/3 rounded bg-muted/50" />
+            <div className="h-10 w-5/6 rounded bg-muted/50" />
+            <div className="h-4 w-1/2 rounded bg-muted/50" />
+            <div className="aspect-video w-full rounded-xl bg-muted/50" />
+            <div className="space-y-3">
+              <div className="h-4 w-full rounded bg-muted/50" />
+              <div className="h-4 w-11/12 rounded bg-muted/50" />
+              <div className="h-4 w-10/12 rounded bg-muted/50" />
+            </div>
+          </div>
+        </div>
       </Layout>
     );
   }
