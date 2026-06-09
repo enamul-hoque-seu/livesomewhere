@@ -171,18 +171,9 @@ const BlogPost = () => {
         jsonLd={{ "@context": "https://schema.org", "@graph": [articleJsonLd, breadcrumbJsonLd] }}
 
       />
-      {post.featured_image && (
-        <Helmet>
-          <link
-            rel="preload"
-            as="image"
-            href={smartImg(post.featured_image, 800)}
-            imageSrcSet={smartSrcSet(post.featured_image, [400, 640, 800, 1200])}
-            imageSizes="(max-width: 768px) 92vw, 720px"
-            {...({ fetchpriority: "high" } as any)}
-          />
-        </Helmet>
-      )}
+      {/* Featured image is preloaded by the inline script in index.html
+          before React mounts — no Helmet preload needed (would fire late
+          and double-fetch). */}
       <ReadingProgressBar />
       <article className="container mx-auto px-4 py-12">
         {/* Breadcrumb */}
