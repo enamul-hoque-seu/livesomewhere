@@ -182,11 +182,7 @@ const BlogPost = () => {
         </nav>
 
         <div className="flex flex-col lg:flex-row gap-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex-1 max-w-3xl"
-          >
+          <div className="flex-1 max-w-3xl">
             <div className="flex items-center gap-2">
               <span className="text-xs font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-full">
                 {post.categories?.name ?? "Uncategorized"}
