@@ -281,7 +281,7 @@ const BlogPost = () => {
                 </div>
               </div>
             )}
-          </motion.div>
+          </div>
 
           {/* Sidebar / TOC */}
           {headings.length > 0 && (
