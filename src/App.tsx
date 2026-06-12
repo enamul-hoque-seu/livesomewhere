@@ -44,9 +44,7 @@ const AdminReferrals = lazy(() => import("./pages/admin/AdminReferrals.tsx"));
 const queryClient = new QueryClient();
 
 const RouteFallback = () => (
-  <div className="flex items-center justify-center min-h-[60vh]">
-    <Loader2 className="h-8 w-8 animate-spin text-primary" />
-  </div>
+  <div className="flex items-center justify-center min-h-[60vh]" aria-hidden="true" />
 );
 
 const App = () => (
