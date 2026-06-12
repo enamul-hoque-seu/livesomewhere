@@ -20,7 +20,7 @@ import SEO from "@/components/SEO";
 import PostCard from "@/components/blog/PostCard";
 import CategoryCard from "@/components/blog/CategoryCard";
 import NewsletterSignup from "@/components/blog/NewsletterSignup";
-import { supabase } from "@/integrations/supabase/client";
+// Supabase loaded dynamically inside effect to keep it off the LCP critical path.
 import { unsplashSrc, unsplashSrcSet } from "@/lib/img";
 import type { DbPost, DbCategory } from "@/types/database";
 
