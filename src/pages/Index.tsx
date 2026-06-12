@@ -198,12 +198,7 @@ const Index = () => {
             </div>
 
             {/* Right: terminal */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
-              className="relative"
-            >
+            <div className="relative animate-fade-in">
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-primary/40 via-secondary/30 to-accent/30 blur-xl opacity-60" />
               <div className="relative rounded-2xl border border-primary/30 bg-[hsl(0_0%_5%)] shadow-[0_0_60px_-15px_hsl(var(--primary)/0.55)] overflow-hidden">
                 {/* title bar */}
@@ -230,7 +225,7 @@ const Index = () => {
                   )}
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* STATS strip */}
