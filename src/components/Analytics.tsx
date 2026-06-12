@@ -23,6 +23,7 @@ const Analytics = () => {
     let cancelled = false;
 
     const boot = async () => {
+      const { supabase } = await import("@/integrations/supabase/client");
       const { data } = await supabase
         .from("site_settings")
         .select("key, value")
