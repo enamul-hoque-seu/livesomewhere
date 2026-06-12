@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import {
   ArrowRight,
   Loader2,
@@ -199,12 +198,7 @@ const Index = () => {
             </div>
 
             {/* Right: terminal */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
-              className="relative"
-            >
+            <div className="relative animate-fade-in">
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-primary/40 via-secondary/30 to-accent/30 blur-xl opacity-60" />
               <div className="relative rounded-2xl border border-primary/30 bg-[hsl(0_0%_5%)] shadow-[0_0_60px_-15px_hsl(var(--primary)/0.55)] overflow-hidden">
                 {/* title bar */}
@@ -231,7 +225,7 @@ const Index = () => {
                   )}
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* STATS strip */}
@@ -259,14 +253,10 @@ const Index = () => {
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {FEATURES.map((f, i) => (
-              <motion.div
+            {FEATURES.map((f) => (
+              <div
                 key={f.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.45, delay: i * 0.05 }}
-                className="group relative rounded-xl border border-border bg-card/50 backdrop-blur-sm p-6 hover:border-primary/40 transition-all hover:-translate-y-1 overflow-hidden"
+                className="group relative rounded-xl border border-border bg-card/50 backdrop-blur-sm p-6 hover:border-primary/40 transition-all hover:-translate-y-1 overflow-hidden animate-fade-in"
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 pointer-events-none" />
                 <div className="relative">
@@ -276,7 +266,8 @@ const Index = () => {
                   <h3 className="text-lg font-heading font-semibold text-foreground mb-2">{f.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
                 </div>
-              </motion.div>
+              </div>
+
             ))}
           </div>
         </div>
@@ -302,14 +293,8 @@ const Index = () => {
                   </Link>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {courses.map((c, i) => (
-                    <motion.div
-                      key={c.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: i * 0.08 }}
-                    >
+                  {courses.map((c) => (
+                    <div key={c.id} className="animate-fade-in">
                       <Link
                         to={`/courses/${c.slug}`}
                         className="group block rounded-xl border border-border bg-card/60 overflow-hidden hover:border-primary/50 transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_-10px_hsl(var(--primary)/0.5)]"
@@ -346,7 +331,7 @@ const Index = () => {
                           </div>
                         </div>
                       </Link>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </div>

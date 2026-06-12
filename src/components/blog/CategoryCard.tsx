@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import { Folder, type LucideIcon } from "lucide-react";
 import type { DbCategory } from "@/types/database";
@@ -12,19 +11,11 @@ const resolveIcon = (name?: string | null): LucideIcon | null => {
 
 const CategoryCard = ({ category, postCount }: { category: DbCategory; postCount?: number }) => {
   const Icon = resolveIcon(category.icon) ?? Folder;
-  // Legacy support: if icon is a single emoji/short non-letter string, render it as text.
   const isEmoji = !!category.icon && !resolveIcon(category.icon) && /^\p{Extended_Pictographic}/u.test(category.icon);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-    >
-      <Link
-        to={`/blog?category=${category.slug}`}
-        className="glass-card-hover p-5 block group"
-      >
+    <div className="animate-fade-in">
+      <Link to={`/blog?category=${category.slug}`} className="glass-card-hover p-5 block group">
         <span className="mb-2 block">
           {isEmoji ? (
             <span className="text-2xl">{category.icon}</span>
@@ -41,7 +32,7 @@ const CategoryCard = ({ category, postCount }: { category: DbCategory; postCount
           <p className="text-xs text-muted-foreground mt-1">{postCount} articles</p>
         )}
       </Link>
-    </motion.div>
+    </div>
   );
 };
 
