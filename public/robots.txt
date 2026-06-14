@@ -1,23 +1,7 @@
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 2
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
-Allow: /blog
-Allow: /blog/*
-Allow: /courses
-Allow: /courses/*
+Disallow: /*?category=
+Disallow: /*?*
 Disallow: /admin/
 Disallow: /admin/*
 
