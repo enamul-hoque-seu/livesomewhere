@@ -63,11 +63,18 @@ async function fetchDynamic(): Promise<SitemapEntry[]> {
       .select("slug, updated_at")
       .eq("is_published", true);
     courses?.forEach((c: any) => {
+      const lastmod = (c.updated_at || "").split("T")[0] || undefined;
       entries.push({
         path: `/courses/${c.slug}`,
-        lastmod: (c.updated_at || "").split("T")[0] || undefined,
+        lastmod,
         changefreq: "weekly",
         priority: "0.8",
+      });
+      entries.push({
+        path: `/courses/${c.slug}/learn`,
+        lastmod,
+        changefreq: "weekly",
+        priority: "0.7",
       });
     });
 
