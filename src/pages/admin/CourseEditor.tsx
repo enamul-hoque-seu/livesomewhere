@@ -67,7 +67,7 @@ export default function CourseEditor() {
     if (!course) return;
     const { data, error } = await supabase
       .from("modules")
-      .insert({ course_id: course.id, title: "New Module", sort_order: modules.length })
+      .insert({ course_id: course.id, title: "New Module", sort_order: modules.length, is_published: true })
       .select("*")
       .single();
     if (error) { toast.error(error.message); return; }
