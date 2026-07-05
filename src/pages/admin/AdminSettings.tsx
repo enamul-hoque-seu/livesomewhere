@@ -166,6 +166,31 @@ export default function AdminSettings() {
         </CardContent>
       </Card>
 
+      {/* Modules */}
+      <Card className="glass-card border-border/50">
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <Settings2 className="h-5 w-5 text-primary" />
+            <CardTitle>Modules</CardTitle>
+          </div>
+          <CardDescription>Enable or disable major site sections</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <Label>Courses</Label>
+              <p className="text-sm text-muted-foreground">Show the Courses section on the site and in the navbar. When off, /courses routes redirect home.</p>
+            </div>
+            <Switch
+              checked={(settings.courses_enabled ?? "true") === "true"}
+              onCheckedChange={() =>
+                update("courses_enabled", (settings.courses_enabled ?? "true") === "true" ? "false" : "true")
+              }
+            />
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Analytics */}
       <Card className="glass-card border-border/50">
         <CardHeader>

@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Search, Menu, X } from "lucide-react";
 import ProfileMenu from "./ProfileMenu";
 import logo from "@/assets/logo.svg";
+import { useBoolSetting } from "@/hooks/useSiteSetting";
 
-const navLinks = [
+const ALL_LINKS = [
   { name: "Home", path: "/" },
   { name: "Courses", path: "/courses" },
   { name: "Blog", path: "/blog" },
@@ -16,6 +17,11 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const location = useLocation();
+  const { enabled: coursesEnabled } = useBoolSetting("courses_enabled", true);
+  const navLinks = useMemo(
+    () => ALL_LINKS.filter((l) => l.path !== "/courses" || coursesEnabled),
+    [coursesEnabled]
+  );
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
