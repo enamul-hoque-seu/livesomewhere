@@ -269,6 +269,15 @@ export default function CourseEditor() {
                   value={m.title}
                   onChange={(e) => updateModule(m, { title: e.target.value })}
                 />
+                <div className="flex items-center gap-2 pr-2" title={m.is_published ? "Published — visible on site" : "Unpublished — hidden from site"}>
+                  <span className={`text-xs font-medium ${m.is_published ? "text-learn" : "text-muted-foreground"}`}>
+                    {m.is_published ? "Published" : "Hidden"}
+                  </span>
+                  <Switch
+                    checked={m.is_published}
+                    onCheckedChange={(v) => updateModule(m, { is_published: v })}
+                  />
+                </div>
                 <Button size="sm" variant="ghost" onClick={() => deleteModule(m.id)} className="text-destructive">
                   <Trash2 className="w-4 h-4" />
                 </Button>
