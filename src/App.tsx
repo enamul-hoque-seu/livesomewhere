@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProfileCompletionGate from "./components/auth/ProfileCompletionGate.tsx";
 import Analytics from "./components/Analytics.tsx";
+import CoursesEnabledGate from "./components/CoursesEnabledGate.tsx";
 
 // Eagerly load the landing page so the inline hero shell in index.html
 // transitions seamlessly into the rendered React tree (no Suspense flash).
@@ -62,9 +63,9 @@ const App = () => (
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/about" element={<About />} />
-              <Route path="/courses" element={<Courses />} />
-              <Route path="/courses/:slug" element={<CourseDetail />} />
-              <Route path="/courses/:slug/learn" element={<CourseLearn />} />
+              <Route path="/courses" element={<CoursesEnabledGate><Courses /></CoursesEnabledGate>} />
+              <Route path="/courses/:slug" element={<CoursesEnabledGate><CourseDetail /></CoursesEnabledGate>} />
+              <Route path="/courses/:slug/learn" element={<CoursesEnabledGate><CourseLearn /></CoursesEnabledGate>} />
               <Route path="/login" element={<Login />} />
               <Route path="/complete-profile" element={<CompleteProfile />} />
               <Route path="/profile" element={<Profile />} />
