@@ -564,7 +564,7 @@ function TerminalSimulator({
           <span className="w-3 h-3 rounded-full bg-red-500/80" />
           <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
           <span className="w-3 h-3 rounded-full bg-learn" />
-          <span className="ml-3 text-xs text-muted-foreground font-mono">student@noob2root:~$ practice</span>
+          <span className="ml-3 text-xs text-muted-foreground font-mono">student@livesomewhere:~$ practice</span>
           <div className="ml-auto flex items-center gap-2">
             <span className="text-[10px] uppercase tracking-wider text-learn/80 font-mono">
               {Math.min(step, totalSteps)}/{totalSteps}

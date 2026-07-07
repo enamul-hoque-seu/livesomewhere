@@ -6,7 +6,7 @@ const NotFound = () => (
   <div className="min-h-screen flex items-center justify-center bg-background relative overflow-hidden">
     <SEO
       title="Page not found"
-      description="The page you're looking for doesn't exist. Head back to Noob to Root's tutorials, courses, and guides."
+      description="The page you're looking for doesn't exist. Head back to Live Somewhere's tutorials, courses, and guides."
       noindex
     />
     <div className="absolute top-1/3 left-1/3 w-72 h-72 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />

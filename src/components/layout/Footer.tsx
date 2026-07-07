@@ -12,7 +12,7 @@ const SOCIAL_KEYS = [
 
 const Footer = () => {
   const [socials, setSocials] = useState<Record<string, string>>({});
-  const [siteName, setSiteName] = useState("Noob to Root");
+  const [siteName, setSiteName] = useState("Live Somewhere");
 
   useEffect(() => {
     let cancelled = false;
@@ -50,7 +50,7 @@ const Footer = () => {
               <img src={logo} alt={siteName} width={180} height={48} className="h-12 w-auto" />
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Hands-on tech tutorials, ethical hacking guides, Linux, and developer walkthroughs — from zero to root.
+              Where people and progress live together.
             </p>
           </div>
 

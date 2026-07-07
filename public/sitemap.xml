@@ -1,142 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://noobtoroot.com/</loc>
+    <loc>https://livesomewhere.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/blog</loc>
+    <loc>https://livesomewhere.com/blog</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/categories</loc>
+    <loc>https://livesomewhere.com/categories</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/courses</loc>
+    <loc>https://livesomewhere.com/courses</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/about</loc>
+    <loc>https://livesomewhere.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/login</loc>
+    <loc>https://livesomewhere.com/login</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/complete-profile</loc>
+    <loc>https://livesomewhere.com/complete-profile</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/profile</loc>
+    <loc>https://livesomewhere.com/profile</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/referrals</loc>
+    <loc>https://livesomewhere.com/referrals</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/blog/kali-linux-monitor-mode-packet-injection-fix</loc>
+    <loc>https://livesomewhere.com/blog/kali-linux-monitor-mode-packet-injection-fix</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/blog/agentic-ai-red-teaming-prompt-injection</loc>
+    <loc>https://livesomewhere.com/blog/agentic-ai-red-teaming-prompt-injection</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/blog/active-directory-enumeration-cheat-sheet</loc>
+    <loc>https://livesomewhere.com/blog/active-directory-enumeration-cheat-sheet</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/blog/api-penetration-testing-bola-jwt-guide</loc>
+    <loc>https://livesomewhere.com/blog/api-penetration-testing-bola-jwt-guide</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/blog/linux-privilege-escalation-masterclass-abusing-suid-and-posix-capabilities-2026-guide</loc>
+    <loc>https://livesomewhere.com/blog/linux-privilege-escalation-masterclass-abusing-suid-and-posix-capabilities-2026-guide</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/blog/cloud-red-teaming-aws-iam-privilege-escalation</loc>
+    <loc>https://livesomewhere.com/blog/cloud-red-teaming-aws-iam-privilege-escalation</loc>
     <lastmod>2026-05-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/blog/breaking-wpa3-sae-handshake-cracking-guide</loc>
+    <loc>https://livesomewhere.com/blog/breaking-wpa3-sae-handshake-cracking-guide</loc>
     <lastmod>2026-05-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/blog/red-teaming-for-beginners-step-by-step</loc>
+    <loc>https://livesomewhere.com/blog/red-teaming-for-beginners-step-by-step</loc>
     <lastmod>2026-05-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/blog/how-to-start-red-teaming-with-no-experience</loc>
+    <loc>https://livesomewhere.com/blog/how-to-start-red-teaming-with-no-experience</loc>
     <lastmod>2026-05-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/blog/what-is-red-teaming-in-cybersecurity-explained</loc>
+    <loc>https://livesomewhere.com/blog/what-is-red-teaming-in-cybersecurity-explained</loc>
     <lastmod>2026-05-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/blog/devsecops-cicd-pipeline-supply-chain-exploitation-guide</loc>
+    <loc>https://livesomewhere.com/blog/devsecops-cicd-pipeline-supply-chain-exploitation-guide</loc>
     <lastmod>2026-05-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/blog/blackbird-osint-tool-tutorial-configuration</loc>
+    <loc>https://livesomewhere.com/blog/blackbird-osint-tool-tutorial-configuration</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/courses/linux-basics-from-zero-to-comfortable</loc>
+    <loc>https://livesomewhere.com/courses/linux-basics-from-zero-to-comfortable</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/courses/linux-basics-from-zero-to-comfortable/learn</loc>
+    <loc>https://livesomewhere.com/courses/linux-basics-from-zero-to-comfortable/learn</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/courses/master-the-terminal-and-bash</loc>
+    <loc>https://livesomewhere.com/courses/master-the-terminal-and-bash</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noobtoroot.com/courses/master-the-terminal-and-bash/learn</loc>
+    <loc>https://livesomewhere.com/courses/master-the-terminal-and-bash/learn</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

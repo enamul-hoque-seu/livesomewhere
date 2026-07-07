@@ -46,7 +46,7 @@ const Categories = () => {
     <Layout>
       <SEO
         title="Categories"
-        description="Browse Noob to Root tutorials by category — Linux, hacking, networking, DevOps, and more."
+        description="Browse Live Somewhere tutorials by category — Linux, hacking, networking, DevOps, and more."
       />
       <div className="container mx-auto px-4 py-12">
         <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-3">Categories</h1>

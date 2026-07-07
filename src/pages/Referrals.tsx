@@ -94,8 +94,8 @@ export default function Referrals() {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Learn Linux & Hacking on Noob to Root",
-          text: "Join me on Noob to Root — premium tutorials from zero to root.",
+          title: "Learn Linux & Hacking on Live Somewhere",
+          text: "Join me on Live Somewhere — where people and progress live together.",
           url: link,
         });
       } catch {
@@ -109,7 +109,7 @@ export default function Referrals() {
   return (
     <Layout>
       <SEO
-        title="Referrals — Noob to Root"
+        title="Referrals — Live Somewhere"
         description="Invite friends and earn free certificates or credit toward paid certificates."
         noindex
       />

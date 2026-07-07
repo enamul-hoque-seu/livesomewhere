@@ -93,13 +93,13 @@ export default function CourseDetail() {
     description: course.short_description ?? course.description ?? "",
     provider: {
       "@type": "Organization",
-      name: "Noob to Root",
-      sameAs: "https://noobtoroot.com",
+      name: "Live Somewhere",
+      sameAs: "https://livesomewhere.com",
     },
     ...(course.instructor_name && {
       instructor: { "@type": "Person", name: course.instructor_name },
     }),
-    url: `https://noobtoroot.com/courses/${course.slug}`,
+    url: `https://livesomewhere.com/courses/${course.slug}`,
   };
 
   return (
@@ -110,12 +110,12 @@ export default function CourseDetail() {
           course.short_description ||
           (course.description
             ? course.description.replace(/\s+/g, " ").trim().slice(0, 155)
-            : `Master ${course.title} on Noob to Root — hands-on lessons, quizzes, terminal labs, and a verifiable certificate.`)
+            : `Master ${course.title} on Live Somewhere — hands-on lessons, quizzes, terminal labs, and a verifiable certificate.`)
         }
         image={course.cover_image ?? undefined}
         type="article"
         author={course.instructor_name ?? undefined}
-        canonical={`https://noobtoroot.com/courses/${course.slug}`}
+        canonical={`https://livesomewhere.com/courses/${course.slug}`}
         jsonLd={courseJsonLd}
       />
       <section className="pt-28 pb-16">

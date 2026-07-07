@@ -1,7 +1,7 @@
 
 ## The real problem
 
-Google's `site:noobtoroot.com` shows every page — homepage, `/blog/active-directory-enumeration…`, `/blog/blackbird-osint…`, etc. — with the **same** title ("Noob to Root — Tech Tutorials, Linux & Hacking Guides") and the **same** description. Per-page meta is not missing in the CMS; it just never reaches Google.
+Google's `site:livesomewhere.com` shows every page — homepage, `/blog/active-directory-enumeration…`, `/blog/blackbird-osint…`, etc. — with the **same** title ("Live Somewhere — Tech Tutorials, Linux & Hacking Guides") and the **same** description. Per-page meta is not missing in the CMS; it just never reaches Google.
 
 Why: this project is a pure client-side Vite + React SPA. The only HTML ever served is `index.html`, which hard-codes the sitewide title/description/OG tags (lines 6–7, 58–61). `SEO.tsx` uses `react-helmet-async`, which mutates `document.head` **after** React hydrates in the browser. Googlebot does render JS, but:
 
@@ -66,7 +66,7 @@ Ensure `public/_redirects` still has the SPA fallback `/*  /index.html  200` **b
 
 - **Why not just wait for Googlebot's JS render?** It does render, but (a) the render pass is delayed and unreliable, and (b) the initial HTML snapshot is what seeds the SERP entry; if that's identical for every URL, Google often dedupes/collapses them under one title until re-render. Prerender fixes the root cause.
 - **Why not SSR (Next / TanStack Start)?** That's a full stack migration. Prerender gives 95% of the SEO benefit with a build-time step and no runtime server.
-- **Social previews:** prerender also fixes LinkedIn/X/Slack sharing showing "Noob to Root — Tech Tutorials…" for every article. After deploy, ask each platform's link debugger to re-scrape (crawlers cache aggressively).
+- **Social previews:** prerender also fixes LinkedIn/X/Slack sharing showing "Live Somewhere — Tech Tutorials…" for every article. After deploy, ask each platform's link debugger to re-scrape (crawlers cache aggressively).
 - **Build time cost:** prerender adds a few seconds per route. For a blog of ~50 posts this is negligible; if the catalog grows to thousands, we can switch to incremental prerender or SSR.
 
 ## Out of scope

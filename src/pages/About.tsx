@@ -6,19 +6,19 @@ import { authors } from "@/data/mockData";
 const About = () => (
   <Layout>
     <SEO
-      title="About Noob to Root"
-      description="Noob to Root publishes hands-on tech tutorials, ethical hacking guides, Linux, and developer walkthroughs — designed to take you from zero to root."
+      title="About Live Somewhere"
+      description="Live Somewhere — Where people and progress live together."
       jsonLd={{
         "@context": "https://schema.org",
         "@type": "AboutPage",
-        name: "About Noob to Root",
-        url: "https://noobtoroot.com/about",
-        description: "Noob to Root publishes hands-on tech tutorials, ethical hacking guides, Linux, and developer walkthroughs — designed to take you from zero to root.",
+        name: "About Live Somewhere",
+        url: "https://livesomewhere.com/about",
+        description: "Live Somewhere — Where people and progress live together.",
         mainEntity: {
           "@type": "Organization",
-          name: "Noob to Root",
-          url: "https://noobtoroot.com",
-          logo: { "@type": "ImageObject", url: "https://noobtoroot.com/og-default.jpg" },
+          name: "Live Somewhere",
+          url: "https://livesomewhere.com",
+          logo: { "@type": "ImageObject", url: "https://livesomewhere.com/og-default.jpg" },
         },
       }}
     />
@@ -28,10 +28,10 @@ const About = () => (
         animate={{ opacity: 1, y: 0 }}
         className="max-w-3xl"
       >
-        <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-6">About Noob to Root</h1>
+        <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-6">About Live Somewhere</h1>
         <div className="glass-card p-8 mb-12">
           <p className="text-foreground/80 leading-relaxed mb-4">
-            Noob to Root is a tech tutorial blog built for curious learners — from absolute beginners ("noobs") to power users earning their root shell. We publish hands-on walkthroughs covering Linux, networking, ethical hacking, cybersecurity, DevOps, and modern software development.
+            Live Somewhere is a community-focused learning platform where people share knowledge, build practical skills, and grow together through modern guides and courses.
           </p>
           <p className="text-foreground/80 leading-relaxed mb-4">
             Every guide is written to be practical, accurate, and easy to follow — with real commands, real screenshots, and zero fluff.

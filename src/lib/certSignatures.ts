@@ -12,8 +12,8 @@ export type CertSignature = {
 };
 
 export const DEFAULT_SIGNATURES: CertSignature[] = [
-  // { image: sig1, name: "Mir Hasibul Hasan", role: "Founder, Noob to Root" },
+  // { image: sig1, name: "Mir Hasibul Hasan", role: "Founder, Live Somewhere" },
   // { image: sig2, name: "Lead Mentor",       role: "Course Instructor" },
-  { name: "Mir Hasibul Hasan", role: "Founder, Noob to Root" },
-  { name: "Noob to Root Team", role: "Course Instructor" },
+  { name: "Mir Hasibul Hasan", role: "Founder, Live Somewhere" },
+  { name: "Live Somewhere Team", role: "Course Instructor" },
 ];

@@ -15,9 +15,9 @@ interface SEOProps {
   noindex?: boolean;
 }
 
-const SITE_NAME = "Noob to Root";
-const SITE_URL = "https://noobtoroot.com";
-const DEFAULT_DESC = "Noob to Root — Hands-on tech tutorials, ethical hacking guides, Linux, networking, and dev walkthroughs from zero to root.";
+const SITE_NAME = "Live Somewhere";
+const SITE_URL = "https://livesomewhere.com";
+const DEFAULT_DESC = "Live Somewhere — Where people and progress live together.";
 
 const toAbsolute = (url?: string) => {
   if (!url) return `${SITE_URL}/og-default.jpg`;

@@ -14,10 +14,10 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";
 import { resolve, join } from "path";
 import { createClient } from "@supabase/supabase-js";
 
-const SITE_URL = "https://noobtoroot.com";
+const SITE_URL = "https://livesomewhere.com";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`;
 const DEFAULT_DESC =
-  "Noob to Root — Hands-on tech tutorials, ethical hacking guides, Linux, networking, and developer walkthroughs from zero to root.";
+  "Live Somewhere — Where people and progress live together.";
 
 const SUPABASE_URL =
   process.env.VITE_SUPABASE_URL ?? "https://arfvjnbsjroryvchknnq.supabase.co";
@@ -42,7 +42,7 @@ interface Meta {
   jsonLd?: unknown[];               // extra JSON-LD blocks
 }
 
-const SITE_NAME = "Noob to Root";
+const SITE_NAME = "Live Somewhere";
 
 const abs = (u?: string) => {
   if (!u) return DEFAULT_OG_IMAGE;
@@ -163,7 +163,7 @@ function writeRoute(template: string, meta: Meta) {
 const staticRoutes: Meta[] = [
   {
     path: "/",
-    title: "Noob to Root — Tech Tutorials, Linux & Hacking Guides",
+    title: "Live Somewhere — Where people and progress live together",
     description: DEFAULT_DESC,
     jsonLd: [
       {
@@ -190,7 +190,7 @@ const staticRoutes: Meta[] = [
     path: "/blog",
     title: "Blog — Tech tutorials, Linux, hacking & DevOps guides",
     description:
-      "Read every Noob to Root article — hands-on Linux, ethical hacking, networking, DevOps, and developer walkthroughs.",
+      "Read every Live Somewhere article and story where people and progress live together.",
     jsonLd: [
       {
         "@context": "https://schema.org",
@@ -204,14 +204,14 @@ const staticRoutes: Meta[] = [
   },
   {
     path: "/about",
-    title: "About Noob to Root",
+    title: "About Live Somewhere",
     description:
-      "Noob to Root publishes hands-on tech tutorials, ethical hacking guides, Linux, and developer walkthroughs — designed to take you from zero to root.",
+      "Live Somewhere — Where people and progress live together.",
     jsonLd: [
       {
         "@context": "https://schema.org",
         "@type": "AboutPage",
-        name: "About Noob to Root",
+        name: "About Live Somewhere",
         url: `${SITE_URL}/about`,
       },
     ],
@@ -220,13 +220,13 @@ const staticRoutes: Meta[] = [
     path: "/categories",
     title: "Browse categories — Linux, hacking, DevOps, networking",
     description:
-      "Explore Noob to Root tutorials by category: Linux, ethical hacking, networking, DevOps, and dev guides.",
+      "Explore Live Somewhere content by category.",
   },
   {
     path: "/courses",
     title: "Courses — Hands-on cybersecurity & DevOps training",
     description:
-      "Structured courses with lessons, quizzes, and certificates. Learn Linux, ethical hacking, and DevOps from zero to root.",
+      "Structured courses with lessons, quizzes, and certificates for shared growth.",
   },
 ];
 

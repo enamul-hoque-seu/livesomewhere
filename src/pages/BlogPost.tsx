@@ -106,7 +106,7 @@ const BlogPost = () => {
         <SEO
           title="Post not found"
           description="The article you're looking for doesn't exist or has been unpublished."
-          canonical={`https://noobtoroot.com/blog/${slug ?? ""}`}
+          canonical={`https://livesomewhere.com/blog/${slug ?? ""}`}
           noindex
         />
         <div className="container mx-auto px-4 py-20 text-center">
@@ -139,10 +139,10 @@ const BlogPost = () => {
     dateModified: (post as any).updated_at || post.published_at || post.created_at,
     author: post.authors
       ? { "@type": "Person", name: post.authors.name }
-      : { "@type": "Organization", name: "Noob to Root" },
+      : { "@type": "Organization", name: "Live Somewhere" },
     publisher: {
       "@type": "Organization",
-      name: "Noob to Root",
+      name: "Live Somewhere",
       logo: { "@type": "ImageObject", url: `${origin}/og-default.jpg` },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": shareUrl },
@@ -174,7 +174,7 @@ const BlogPost = () => {
         updatedAt={(post as any).updated_at}
         author={post.authors?.name}
         tags={post.tags ?? []}
-        canonical={`https://noobtoroot.com/blog/${post.slug}`}
+        canonical={`https://livesomewhere.com/blog/${post.slug}`}
         jsonLd={{ "@context": "https://schema.org", "@graph": [articleJsonLd, breadcrumbJsonLd] }}
 
       />

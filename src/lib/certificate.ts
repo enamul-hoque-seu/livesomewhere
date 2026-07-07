@@ -468,7 +468,7 @@ export async function generateCertificatePdf(data: CertData) {
   doc.setFontSize(7);
   doc.text(`SHA  ${data.number}  ::  AUTH OK`, 50, H - 24, { charSpace: 1 });
   setText(doc, NEON);
-  doc.text("verify  →  noobtoroot.com/verify", W - 50, H - 24, { align: "right", charSpace: 1 });
+  doc.text("verify  →  livesomewhere.com/verify", W - 50, H - 24, { align: "right", charSpace: 1 });
 
   doc.save(`noob-to-root-certificate-${data.number}.pdf`);
 }

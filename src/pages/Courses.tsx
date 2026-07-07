@@ -32,11 +32,11 @@ export default function Courses() {
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Noob to Root Courses",
+    name: "Live Somewhere Courses",
     itemListElement: courses.map((c, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `https://noobtoroot.com/courses/${c.slug}`,
+      url: `https://livesomewhere.com/courses/${c.slug}`,
       name: c.title,
     })),
   };

@@ -35,12 +35,12 @@ type DbCourse = {
 };
 
 const TERMINAL_LINES = [
-  { p: "root@noobtoroot:~#", t: "whoami" },
+  { p: "root@livesomewhere:~#", t: "whoami" },
   { o: "→ future_ethical_hacker" },
-  { p: "root@noobtoroot:~#", t: "nmap -sV target.lab" },
+  { p: "root@livesomewhere:~#", t: "nmap -sV target.lab" },
   { o: "→ 22/tcp  open  ssh   OpenSSH 9.2" },
   { o: "→ 80/tcp  open  http  nginx 1.25" },
-  { p: "root@noobtoroot:~#", t: "sudo ./learn --from=zero --to=root" },
+  { p: "root@livesomewhere:~#", t: "sudo ./learn --from=zero --to=root" },
   { o: "✓ access granted. welcome, operator." },
 ];
 
@@ -48,7 +48,7 @@ const FEATURES = [
   { icon: Terminal, title: "Hands-on Labs", desc: "Real shells, real targets. No fluff, only payloads that work." },
   { icon: ShieldCheck, title: "Verified Certificates", desc: "Earn signed PDF credentials after every course completion." },
   { icon: Bug, title: "CTF-style Challenges", desc: "Sharpen offense & defense with progressive difficulty rooms." },
-  { icon: Network, title: "From Zero to Root", desc: "Curated paths: Linux → Networking → Pentesting → DevOps." },
+  { icon: Network, title: "People + Progress", desc: "Curated learning paths that help communities grow together." },
   { icon: Lock, title: "Modern Security", desc: "OWASP, cloud security, hardening, and red-team tradecraft." },
   { icon: Cpu, title: "DevOps & Systems", desc: "Containers, CI/CD, infrastructure-as-code, observability." },
 ];
@@ -111,12 +111,12 @@ const Index = () => {
   const featuredPosts = posts.filter((p) => p.is_featured);
   const latestPosts = posts.slice(0, 6);
 
-  const siteUrl = "https://noobtoroot.com";
+  const siteUrl = "https://livesomewhere.com";
 
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Noob to Root",
+    name: "Live Somewhere",
     url: siteUrl,
     potentialAction: {
       "@type": "SearchAction",
@@ -128,20 +128,20 @@ const Index = () => {
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Noob to Root",
+    name: "Live Somewhere",
     url: siteUrl,
     logo: { "@type": "ImageObject", url: `${siteUrl}/og-default.jpg` },
     sameAs: [
-      "https://twitter.com/noobtoroot",
-      "https://github.com/noobtoroot",
+      "https://twitter.com/livesomewhere",
+      "https://github.com/livesomewhere",
     ],
   };
 
   return (
     <Layout>
       <SEO
-        title="Noob to Root — Premium Cybersecurity & Tech Tutorials"
-        description="Premium hands-on tutorials & certified courses in ethical hacking, Linux, networking, DevOps & cybersecurity. From Zero to Root."
+        title="Live Somewhere — Where people and progress live together"
+        description="Live Somewhere — Where people and progress live together."
         jsonLd={{ "@context": "https://schema.org", "@graph": [websiteJsonLd, organizationJsonLd] }}
       />
 
@@ -178,19 +178,17 @@ const Index = () => {
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-mono uppercase tracking-widest mb-6">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                Cybersecurity · Linux · DevOps
+                Live Somewhere
               </div>
 
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold leading-[1.05] mb-6">
-                <span className="text-foreground">Hack the gap</span>
+                <span className="text-foreground">Live Somewhere</span>
                 <br />
-                <span className="gradient-text">From Zero to Root.</span>
+                <span className="gradient-text">Where people and progress live together.</span>
               </h1>
 
               <p className="text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed">
-                A premium playground for ethical hackers, sysadmins, and builders.
-                Hands-on labs, certified courses, and battle-tested guides — built
-                by operators, for the next generation of operators.
+                A modern platform for community growth, shared learning, and meaningful progress.
               </p>
 
               <div className="flex flex-wrap gap-3">

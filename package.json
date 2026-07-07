@@ -1,7 +1,8 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "live-somewhere",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Live Somewhere — Where people and progress live together.",
   "type": "module",
   "scripts": {
     "predev": "bunx tsx scripts/generate-sitemap.ts",

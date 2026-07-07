@@ -67,8 +67,8 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4 relative overflow-hidden">
       <SEO
-        title={mode === "signin" ? "Sign in — Noob to Root" : "Create account — Noob to Root"}
-        description="Access your courses, certificates, and learning progress on Noob to Root."
+        title={mode === "signin" ? "Sign in — Live Somewhere" : "Create account — Live Somewhere"}
+        description="Access your courses, certificates, and learning progress on Live Somewhere."
         noindex
       />
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10 pointer-events-none" />
@@ -82,9 +82,7 @@ export default function Login() {
       <Card className="w-full max-w-md glass-card border-border/50 relative z-10">
         <CardHeader className="text-center space-y-2">
           <div className="flex items-center justify-center gap-1">
-            <span className="text-2xl font-heading font-bold neon-text">Noob</span>
-            <span className="text-2xl font-heading font-bold text-muted-foreground">2</span>
-            <span className="text-2xl font-heading font-bold">Root</span>
+            <span className="text-2xl font-heading font-bold neon-text">Live Somewhere</span>
           </div>
           <CardTitle className="text-xl">
             {signedUpEmail ? "Check your inbox" : "Welcome"}

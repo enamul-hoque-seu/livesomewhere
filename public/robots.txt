@@ -5,4 +5,4 @@ Disallow: /*?*
 Disallow: /admin/
 Disallow: /admin/*
 
-Sitemap: https://noobtoroot.com/sitemap.xml
+Sitemap: https://livesomewhere.com/sitemap.xml

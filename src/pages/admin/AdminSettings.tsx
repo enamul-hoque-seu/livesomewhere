@@ -21,9 +21,9 @@ const SOCIAL_FIELDS = [
 ];
 
 const SITE_FIELDS = [
-  { key: "site_name", label: "Site Name", placeholder: "Noob to Root" },
-  { key: "site_tagline", label: "Tagline", placeholder: "From Noob to Root — Tech Tutorials & Hacking Guides" },
-  { key: "contact_email", label: "Contact Email", placeholder: "hello@noobtoroot.com" },
+  { key: "site_name", label: "Site Name", placeholder: "Live Somewhere" },
+  { key: "site_tagline", label: "Tagline", placeholder: "Where people and progress live together" },
+  { key: "contact_email", label: "Contact Email", placeholder: "hello@livesomewhere.com" },
 ];
 
 export default function AdminSettings() {

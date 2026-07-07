@@ -1,8 +1,8 @@
-# Noob to Root
+# Live Somewhere
 
-> Hands-on tech tutorials, ethical hacking guides, Linux, networking, DevOps, and developer walkthroughs — from zero to root.
+> Where people and progress live together.
 
-Noob to Root is a tutorial blog and learning academy for curious learners. We publish practical, command-line-first guides and interactive courses with quizzes, terminal practice, and verifiable certificates.
+Live Somewhere is a community-driven learning platform focused on practical growth, shared knowledge, and meaningful progress.
 
 ## Pages
 
@@ -10,4 +10,4 @@ Noob to Root is a tutorial blog and learning academy for curious learners. We pu
 - [Blog](/blog): All tutorials and guides.
 - [Categories](/categories): Browse tutorials by topic (Linux, hacking, networking, DevOps).
 - [Courses](/courses): Interactive courses with terminal practice and certificates.
-- [About](/about): About Noob to Root and the team.
+- [About](/about): About Live Somewhere and the team.

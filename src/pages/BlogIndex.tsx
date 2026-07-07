@@ -67,13 +67,13 @@ const BlogIndex = () => {
   }, [posts, searchQuery, selectedCategory, sortBy]);
 
   const blogJsonLd = useMemo(() => {
-    const siteUrl = "https://noobtoroot.com";
+    const siteUrl = "https://livesomewhere.com";
     return {
       "@context": "https://schema.org",
       "@type": "Blog",
-      name: "Noob to Root Tutorials",
+      name: "Live Somewhere Tutorials",
       url: `${siteUrl}/blog`,
-      description: "Browse all Noob to Root tutorials — Linux, ethical hacking, networking, DevOps, and developer guides.",
+      description: "Browse all Live Somewhere tutorials — Linux, ethical hacking, networking, DevOps, and developer guides.",
       blogPost: posts.map((post) => ({
         "@type": "BlogPosting",
         headline: post.title,
@@ -97,7 +97,7 @@ const BlogIndex = () => {
     <Layout>
       <SEO
         title="Tutorials & Guides"
-        description="Browse all Noob to Root tutorials — Linux, ethical hacking, networking, DevOps, and developer guides."
+        description="Browse all Live Somewhere tutorials — Linux, ethical hacking, networking, DevOps, and developer guides."
         jsonLd={blogJsonLd}
       />
       <div className="container mx-auto px-4 py-12">
